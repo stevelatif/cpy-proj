@@ -1,0 +1,2 @@
+/** \page $project_name
+*/
