@@ -1,10 +1,10 @@
 all: $project_name unit_tests coverage_tests profile_tests
 
-CFLAGS_ALL = -Wall -Werror -Wextra -Wuninitialized -O -pedantic -Wcast-qual -Wcast-align -Wconversion -Wstrict-prototypes -std=c99
+CFLAGS_ALL = -Wall -Wextra -Wuninitialized -O -pedantic -Wcast-qual -Wcast-align -Wconversion -Wstrict-prototypes -std=c99
 CFLAGS = $${CFLAGS_ALL} -g -I/usr/local/include 
 CFLAGS_GPROF = $${CFLAGS_ALL} -pg -I/usr/local/include -DTEST_OPERATIONS
 CFLAGS_UNIT = $${CFLAGS_ALL} -Wall -std=c99 -pg -fPIC -I/usr/local/include -DTEST_OPERATIONS
-CFLAGS_GCOV = -g -$${CFLAGS_ALL} -O0 -fprofile-arcs -ftest-coverage -DTEST_OPERATIONS -I/usr/local/include
+CFLAGS_GCOV = -g $${CFLAGS_ALL} -O0 -fprofile-arcs -ftest-coverage -DTEST_OPERATIONS -I/usr/local/include
 LDFLAGS = -L/usr/local/lib
 LDFLAGS_UNIT = -L/usr/local/lib -lcunit -lncurses 
 
