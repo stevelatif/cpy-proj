@@ -1,5 +1,4 @@
-/* License */
-/* Copyright Steve Latif 2014 */
+$header_banner
 
 /** 
  * \file $project_name

@@ -1,0 +1,20 @@
+Add options:
+    
+
+Templates:
+	Add header for BSD license  DONE
+	tcp server 
+	tcp client 
+	tcp server and client
+	ipv6 option
+	state machine
+	protocol engine
+	event driven server
+	thread server
+	threaded event server
+	
+Makefile
+	Add run_unit_tests target to Makefile
+	Add optimnized production version to Makefile
+	Add dependencies to rebuild on source file change
+	

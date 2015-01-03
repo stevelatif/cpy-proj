@@ -1,5 +1,7 @@
-#ifndef __HELLO2__H__
-#define __HELLO2__H__
+$header_banner
+
+#ifndef $project_name_gate
+#define $project_name_gate
 
 int print_output(char* str);
 
