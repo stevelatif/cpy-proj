@@ -79,10 +79,13 @@ class CProject():
                                                    'header_banner':self.header_banner})
         self._write_file(os.path.join(self.project_name, self.project_name) + ".c", proj)
 
-        # Create Header
+        # Create Headers
         header = self._populate_template('hello.h', {'project_name_gate':self.project_name_gate,
                                                      'header_banner':self.header_banner})
         self._write_file(os.path.join(self.project_name, self.project_name) + ".h", header)
+
+        header = self._populate_template('unit_tests.h', {'header_banner':self.header_banner})
+        self._write_file(os.path.join(self.project_name, 'unit_tests.h'), header)
 
         # Create Makefile
         project_name_test = self.project_name + "_test"
@@ -92,7 +95,7 @@ class CProject():
         self._write_file(os.path.join(self.project_name, 'Makefile'), make)
 
         # Create Unittests 
-        unitt = self._populate_template('unit_test.c', {'project_name':self.project_name,
+        unitt = self._populate_template('unit_tests.c', {'project_name':self.project_name,
                                         'header_banner':self.header_banner})
         filename = os.path.join(self.unit_tests, 'unit_tests.c')
         self._write_file(filename, unitt)
@@ -111,6 +114,9 @@ class CProject():
                                                      'header_banner':self.header_banner})
         self._write_file(os.path.join(self.project_name, self.project_name) + ".h", header)
 
+        header = self._populate_template('unit_tests.h', {'header_banner':self.header_banner})
+        self._write_file(os.path.join(self.project_name, 'unit_tests.h'), header)
+
         # Create Makefile
         project_name_test = self.project_name + "_test"
         make = self._populate_template('hello_makefile', 
@@ -119,7 +125,7 @@ class CProject():
         self._write_file(os.path.join(self.project_name, 'Makefile'), make)
 
         # Create Unittests 
-        unitt = self._populate_template('unit_test.c', {'project_name':self.project_name,
+        unitt = self._populate_template('unit_tests.c', {'project_name':self.project_name,
                                         'header_banner':self.header_banner})
         filename = os.path.join(self.unit_tests, 'unit_tests.c')
         self._write_file(filename, unitt)
@@ -138,6 +144,9 @@ class CProject():
                                                      'header_banner':self.header_banner})
         self._write_file(os.path.join(self.project_name, self.project_name) + ".h", header)
 
+        header = self._populate_template('unit_tests.h', {'header_banner':self.header_banner})
+        self._write_file(os.path.join(self.project_name, 'unit_tests.h'), header)
+
         # Create Makefile
         project_name_test = self.project_name + "_test"
         make = self._populate_template('hello_makefile', 
@@ -146,7 +155,7 @@ class CProject():
         self._write_file(os.path.join(self.project_name, 'Makefile'), make)
 
         # Create Unittests 
-        unitt = self._populate_template('unit_test.c', {'project_name':self.project_name,
+        unitt = self._populate_template('unit_tests.c', {'project_name':self.project_name,
                                         'header_banner':self.header_banner})
         filename = os.path.join(self.unit_tests, 'unit_tests.c')
         self._write_file(filename, unitt)

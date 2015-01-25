@@ -18,3 +18,29 @@ Makefile
 	Add optimnized production version to Makefile
 	Add dependencies to rebuild on source file change
 	
+
+Misc
+	Client - Server in one directory
+	Complex project in multiple directories
+	Logging with syslog - look at alternatives
+	Modify the makefiles and templates to produce a production version
+	CMakefile version
+	autotools version
+
+Testing stuff
+	Cmockery mock objects
+
+Chef
+	Set up chef recipes 
+	Install on free chef server 
+	
+
+Documentation
+	Write up
+	Hello World
+	Project generated and then custom code linked in
+	Daemon
+	Vagrant integration
+	Chef version with Vagrant
+	Can you link this in with an Eclipse project ?
+		
