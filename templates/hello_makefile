@@ -1,32 +1,44 @@
 all: $project_name unit_tests coverage_tests profile_tests
 
-CFLAGS_ALL = -Wall -Wextra -Wuninitialized -O -pedantic -Wcast-qual -Wcast-align -Wconversion -Wstrict-prototypes -std=c99
-CFLAGS = $${CFLAGS_ALL} -g -I/usr/local/include 
-CFLAGS_GPROF = $${CFLAGS_ALL} -pg -I/usr/local/include -DTEST_OPERATIONS
-CFLAGS_UNIT = $${CFLAGS_ALL} -Wall -std=c99 -pg -fPIC -I/usr/local/include -DTEST_OPERATIONS
-CFLAGS_GCOV = -g $${CFLAGS_ALL} -O0 -fprofile-arcs -ftest-coverage -DTEST_OPERATIONS -I/usr/local/include
-LDFLAGS = -L/usr/local/lib
+CFLAGS_ALL = -Wall -Wextra  -pedantic -Wcast-qual -Wcast-align -Wconversion -Wstrict-prototypes -Wshadow -Wfloat-equal -Wundef -Wpointer-arith -Wwrite-strings -Waggregate-return -Wconversion -Wunreachable-code -Winit-self -Wmissing-prototypes  -Werror-implicit-function-declaration -Wswitch-default -Wswitch-enum -std=c99
+CFLAGS = $${CFLAGS_ALL} -O3  -I/usr/local/include 
+CFLAGS_GPROF = $${CFLAGS_ALL} -g -pg -O0 -I/usr/local/include -DTEST_OPERATIONS
+CFLAGS_DEBUG = $${CFLAGS_ALL} -g  -O0 -I/usr/local/include -save-temps -S -fverbose-asm
+CFLAGS_UNIT = $${CFLAGS_ALL} -g -Wall -O0 -std=c99 -pg -fPIC -I/usr/local/include -DTEST_OPERATIONS
+CFLAGS_GCOV = -g $${CFLAGS_ALL} -g -O0 -fprofile-arcs -ftest-coverage -DTEST_OPERATIONS -I/usr/local/include
+LDFLAGS = 
 LDFLAGS_UNIT = -L/usr/local/lib -lcunit -lncurses 
 
 OBJS = $project_name.o 
 OBJS_UNIT = $project_name_test.o
 OBJS_COV = $project_name.cov
 OBJS_GPROF = $project_name_test.o 
+VALGRIND=valgrind --log-file=/tmp/valgrind-$project_name.log
 
-$project_name:
-	$$(CC) $$(CFLAGS) $$(LDFLAGS) -o $$@ $$*.c
+$project_name: $project_name.c
+	$$(CC) $$(CFLAGS) $$(LDFLAGS) -o $$@ $$?
+	strip $$@
+
+debug_$project_name: $project_name.c
+	$$(CC) $$(CFLAGS_DEBUG) $$(LDFLAGS) -o $$@ $$?
 
 $project_name_test.o: $project_name.c
 	$$(CC) $$(CFLAGS_UNIT) $$(LDFLAGS) -c $$? -o $$@ 
 
-$project_name.o:
-	$$(CC) $$(CFLAGS) $$(LDFLAGS) -DTEST_OPERATIONS -c $project_name.c
+$project_name.o: $project_name.c
+	$$(CC) $$(CFLAGS_UNIT) $$(LDFLAGS) -DTEST_OPERATIONS -c $$?
 
 unit_tests.o: unit_tests.c
 	$$(CC) $$(CFLAGS_UNIT) -c $$? -o $$@
 
-coverage_tests: unit_tests.o
-	$$(CC) $$(CFLAGS_GCOV)   $$(LDFLAGS_UNIT) -DTEST_OPERATIONS -o $$@ $project_name.c $$>
+unit_tests: unit_tests.o $project_name.o
+	$$(CC) $$(CFLAGS_UNIT) $$(LDFLAGS_UNIT) -o $$@ $$?
+
+coverage_tests: unit_tests.o 
+	$$(CC) $$(CFLAGS_GCOV) $$(LDFLAGS_UNIT) -DTEST_OPERATIONS -o $$@ $project_name.c $$?
+
+run_unit_tests: unit_tests.c
+	./unit_tests
 
 run_coverage_tests: coverage_tests
 	./coverage_tests
@@ -39,6 +51,9 @@ run_profile_tests: profile_tests
 profile_tests : $${OBJS_GPROF}
 	$$(CC) $$(CFLAGS_GPROF) $$(LDFLAGS_UNIT) -o $$@ $$? unit_tests.c
 
+valgrind_tests: coverage_tests
+	$$(VALGRIND) ./coverage_tests
+
 lint : 
 	splint $project_name.c
 doc:
@@ -46,6 +61,8 @@ doc:
 	doxygen Doxyfile
 
 clean:
-	rm -f *.o *~ $project_name *.core *.gcov *.gcda *.gcno *.out coverage_tests profile_tests Cunit*.xml
+	rm -f *.o *~ $project_name *.core *.gcov *.gcda *.gcno *.out coverage_tests profile_tests Cunit*.xml unit_tests
+	rm -rf *.dSYM
 	rm -rf html
 	rm -rf latex
+	rm *.i

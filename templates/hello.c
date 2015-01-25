@@ -19,11 +19,12 @@ int print_output(char* str){
   return(0);
 }
 
-#ifndef TEST_OPERATIONS
+#ifdef TEST_OPERATIONS
+#include "unit_tests.h"
 /**
  * main() for project $project_name with unit tests
  */
-int main(int argc, char** argv) {
+int main(void) {
      unit_tests();
      return(0);
 }
@@ -31,7 +32,7 @@ int main(int argc, char** argv) {
 /**
  * main() for project $project_name
  */
-int main(int argc, char** argv) {
+int main(void) {
   char str[20] = "Hello World";
      print_output(str);
      return(0);
