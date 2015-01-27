@@ -208,7 +208,6 @@ def main():
             cproj.header_banner = header_file.read()
     else:
         cproj.header_banner = default_header
-
     if args.project_type == 'simple_console':
         cproj.simple_console()
     elif args.project_type == 'simple_daemon':
