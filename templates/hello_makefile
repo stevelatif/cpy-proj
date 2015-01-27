@@ -1,9 +1,15 @@
 all: $project_name unit_tests coverage_tests profile_tests
 
+<<<<<<< HEAD
 CFLAGS_ALL = -Wall -Wextra  -pedantic -Wcast-qual -Wcast-align -Wconversion -Wstrict-prototypes -Wshadow -Wfloat-equal -Wundef -Wpointer-arith -Wwrite-strings -Waggregate-return -Wconversion -Wunreachable-code -Winit-self -Wmissing-prototypes  -Werror-implicit-function-declaration -Wswitch-default -Wswitch-enum -std=c99
 CFLAGS = $${CFLAGS_ALL} -O3  -I/usr/local/include 
 CFLAGS_GPROF = $${CFLAGS_ALL} -g -pg -O0 -I/usr/local/include -DTEST_OPERATIONS
 CFLAGS_DEBUG = $${CFLAGS_ALL} -g  -O0 -I/usr/local/include -save-temps -S -fverbose-asm
+=======
+CFLAGS_ALL = -Wall -Wextra -Wuninitialized -pedantic -Wcast-qual -Wcast-align -Wconversion -Wstrict-prototypes -std=c99
+CFLAGS = $${CFLAGS_ALL} -O3  -I/usr/local/include 
+CFLAGS_GPROF = $${CFLAGS_ALL} -g -pg -O0 -I/usr/local/include -DTEST_OPERATIONS
+>>>>>>> d42545d019af7177a86233f6da8636730bef9528
 CFLAGS_UNIT = $${CFLAGS_ALL} -g -Wall -O0 -std=c99 -pg -fPIC -I/usr/local/include -DTEST_OPERATIONS
 CFLAGS_GCOV = -g $${CFLAGS_ALL} -g -O0 -fprofile-arcs -ftest-coverage -DTEST_OPERATIONS -I/usr/local/include
 LDFLAGS = 
